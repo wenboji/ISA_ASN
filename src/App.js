@@ -1,13 +1,13 @@
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Routes from './Router.js';
+import { BrowserRouter } from 'react-router-dom';
+import { CourseRoute } from './Router';
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <div className="App">
-        <Routes />
+        <CourseRoute />
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 

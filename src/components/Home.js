@@ -1,35 +1,29 @@
 import banner from '../banner.jpg';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { courses } from '../Const.js';
 export const Home = () => {
-  const courses = {
-    COMP4537: 'Internet Software Architecture',
-    COMP4948: 'Predictive Machine Learning',
-    COMP4949: 'Big Data Analytics Methods',
-  };
-  const links = Object.keys(courses).map((courseNum) => {
+  const links = courses.map(({ courseNum, courseName }) => {
     return (
       <li>
-        <Link to={'/' + courseNum}>{courseNum + ' ' + courses[courseNum]}</Link>
+        <Link to={'/' + courseNum}>{courseNum + ' ' + courseName}</Link>
       </li>
     );
   });
   return (
-    <Router>
-      <div className="App">
-        <div className="banner">
-          <img src={banner}></img>
-        </div>
-        <div className="course-list">
-          <ul className="top-ul">
-            <li>
-              <h3>Course List</h3>
-            </li>
-            <li>
-              <ul className="course-ul">{links}</ul>
-            </li>
-          </ul>
-        </div>
+    <div className="App">
+      <div className="banner">
+        <img src={banner}></img>
       </div>
-    </Router>
+      <div className="course-list">
+        <ul className="top-ul">
+          <li>
+            <h3>Course List</h3>
+          </li>
+          <li>
+            <ul className="course-ul">{links}</ul>
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 };
