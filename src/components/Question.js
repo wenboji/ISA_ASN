@@ -20,11 +20,12 @@ const Choice = ({ choiceText, questionCount, id }) => {
 };
 
 const renderChoices = (question) => {
-  return question.choices.map((choice) => {
+  return question.choices.map(({ choiceId, choiceText }) => {
     return (
       <Choice
-        id={choice.choiceId}
-        choiceText={choice.choiceText}
+        key={choiceId}
+        id={choiceId}
+        choiceText={choiceText}
         questionCount={question.questionCount}
       />
     );

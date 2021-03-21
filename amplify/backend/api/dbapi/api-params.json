@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/quizs/{quizNum}",
+            "lambdaFunction": "getQuizByNum",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/quizs/*"
+        }
+    ],
+    "resourceName": "dbapi",
+    "apiName": "dbapi",
+    "functionArns": [
+        {
+            "lambdaFunction": "getQuizByNum"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-amplifyasn-dev-160601-authRole",
+        "unAuthRoleName": "amplify-amplifyasn-dev-160601-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "getQuizByNum",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

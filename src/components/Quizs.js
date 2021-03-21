@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { quizs } from '../Const';
+import { quizs, questions, scoreBoards } from '../Const';
 import {
   Route,
   Link,
@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import Modal from 'react-modal';
 import { Question } from './Question';
-import { questions } from '../Const';
+import DataGrid from 'react-data-grid';
 export const QuizPage = () => {
   let { path } = useRouteMatch();
   return (
@@ -23,7 +23,6 @@ export const QuizPage = () => {
     </Switch>
   );
 };
-//TODO: username input when inside of quiz page
 const Quizs = (props) => {
   let { url } = useRouteMatch();
   const quizsLinks = quizs.map(({ quiz }) => {
@@ -44,34 +43,48 @@ const Quizs = (props) => {
 const Quiz = ({ quizQuestions }) => {
   const [modalIsOpen, setModalIsOpen] = useState(true);
   const [userNameInputModalToggle, setUserNameInputModalToggle] = useState(
-    true
+    false
   );
   const [identity, setIdentity] = useState('');
   const [questions, setQuestions] = useState(quizQuestions);
   const [questionCount, setQuestionsCount] = useState(0);
   const [userName, setUserName] = useState('anonymous');
+  const [scoreBoardModalIsOpen, setScoreBoardModalIsOpen] = useState(false);
+  const [scoreBoard, setScoreBoard] = useState([]);
   let { quizNum } = useParams();
+  // use effect**************************************************
   useEffect(() => {
     if (identity) {
       toggleModal();
+      setUserNameInputModalToggle(!userNameInputModalToggle);
     }
   }, [identity]);
+
   useEffect(() => {
     setQuestionsCount(questions.length);
   }, [questions]);
+  useEffect(() => {
+    setScoreBoard(scoreBoards);
+  }, []);
+
   //identity modal
   const toggleModal = () => {
     if (identity) {
       setModalIsOpen(!modalIsOpen);
     }
   };
+  const scoreBoardModalToggle = () => {
+    setScoreBoardModalIsOpen(!scoreBoardModalIsOpen);
+  };
   //student
   //student submit quiz
   const submit = () => {
-    console.log(calScore());
+    const score = calScore();
+    alert('your score is ' + score);
+    setScoreBoard([...scoreBoard, { userName: userName, score: score }]);
+    scoreBoardModalToggle();
     //TODO: update score
   };
-
   function calScore() {
     return (
       (questions.filter(
@@ -83,6 +96,26 @@ const Quiz = ({ quizQuestions }) => {
       100
     );
   }
+  const columns = [
+    { key: 'userName', name: 'UserName' },
+    {
+      key: 'score',
+      name: 'Score',
+    },
+  ];
+  const scoreBoardModal = () => {
+    return (
+      <Modal isOpen={scoreBoardModalIsOpen} ariaHideApp={false}>
+        <p>{quizNum} Score Board</p>
+        <DataGrid
+          columns={columns}
+          rows={scoreBoard.sort((a, b) => b.score - a.score)}
+        />
+        <button onClick={scoreBoardModalToggle}>Close</button>
+      </Modal>
+    );
+  };
+
   //teacher
   function addQuestion() {
     let addedQuestion = {
@@ -93,7 +126,6 @@ const Quiz = ({ quizQuestions }) => {
     for (let i = 0; i < 4; i++) {
       addChoice(addedQuestion);
     }
-    console.log(addedQuestion);
     setQuestions([...questions, addedQuestion]);
   }
   function deleteQuestion() {
@@ -146,13 +178,13 @@ const Quiz = ({ quizQuestions }) => {
           id={choice.choiceId}
           name={question.questionCount}
           checked={choice.rightChoice}
-          onClick={() => {
+          onChange={() => {
             question.choices.map((choice) => (choice.rightChoice = false));
             choice.rightChoice = true;
             setQuestions([...questions]);
           }}
         />
-        <label for={choice.choiceId}></label>
+        <label htmlFor={choice.choiceId}></label>
         <input
           type="text"
           placeholder={
@@ -170,7 +202,7 @@ const Quiz = ({ quizQuestions }) => {
   };
   const identityModal = () => {
     return (
-      <Modal isOpen={modalIsOpen} contentLabel="You are ?">
+      <Modal isOpen={modalIsOpen} ariaHideApp={false}>
         <h4>You are ___? Please choose. </h4>
         <button
           onClick={(event) => {
@@ -191,7 +223,7 @@ const Quiz = ({ quizQuestions }) => {
   };
   const userNameInputModal = () => {
     return (
-      <Modal isOpen={userNameInputModalToggle}>
+      <Modal isOpen={userNameInputModalToggle} ariaHideApp={false}>
         <input
           type="text"
           placeholder="please input your name"
@@ -207,10 +239,13 @@ const Quiz = ({ quizQuestions }) => {
   };
   return (
     <div>
-      <div className="quiz">{quizNum}</div>
+      <div className="quiz">
+        {quizNum}
+        <button onClick={scoreBoardModalToggle}>Score Board</button>
+      </div>
       {identityModal()}
       <div>
-        {identity === 'Student' ? (
+        {identity !== 'Teacher' ? (
           <div className="questions">
             {userNameInputModal()}
             <div>{'user: ' + userName}</div>
@@ -223,10 +258,11 @@ const Quiz = ({ quizQuestions }) => {
                     setQuestions(questions);
                   }}
                 >
-                  <Question question={question} />
+                  <Question question={question} key={questionCount} />
                 </div>
               );
             })}
+            <div>{scoreBoardModal()}</div>
             <button onClick={submit}>Submit</button>
           </div>
         ) : (

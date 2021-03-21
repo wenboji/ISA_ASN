@@ -12,7 +12,7 @@ export const Home = () => {
   return (
     <div className="App">
       <div className="banner">
-        <img src={banner}></img>
+        <img src={banner} alt="banner"></img>
       </div>
       <div className="course-list">
         <ul className="top-ul">

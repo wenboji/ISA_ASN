@@ -35,4 +35,10 @@ const questions = [
     ],
   },
 ];
-export { courses, labs, quizs, questions };
+const scoreBoards = [
+  { userName: 'lalala', score: 50 },
+  { userName: 'nanana', score: 60 },
+  { userName: 'oiawuer', score: 70 },
+  { userName: 'askldjf', score: 80 },
+];
+export { courses, labs, quizs, questions, scoreBoards };
