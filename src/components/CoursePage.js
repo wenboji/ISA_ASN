@@ -9,6 +9,7 @@ import {
 import { labs } from '../Const';
 import { Lab } from './Lab';
 import { QuizPage } from './Quizs';
+import { TeamProject } from './TeamProject';
 const Course = (props) => {
   const { courseNum, courseName, url } = props;
   const labLinks = labs.map(({ labName }) => {
@@ -25,11 +26,19 @@ const Course = (props) => {
       </li>
     );
   };
+  const teamProject = () => {
+    return (
+      <li>
+        <Link to={`${url}/teamproject`}>Team Project</Link>
+      </li>
+    );
+  };
   return (
     <div className="course">
       <div>{courseNum + ' ' + courseName}</div>
       <ul>{labLinks}</ul>
       <ul>{quizLinks()}</ul>
+      <ul>{teamProject()}</ul>
     </div>
   );
 };
@@ -45,9 +54,12 @@ export const CoursePage = (props) => {
       <Route path={`${path}/quizs`}>
         <QuizPage />
       </Route>
-      <Route path={`${path}/:labNum`}>
-        <Lab />
+      <Route path={`${path}/teamproject`}>
+        <TeamProject />
       </Route>
+      {/* <Route path={`${path}/:labNum`}>
+        <Lab />
+      </Route> */}
     </Switch>
   );
 };
