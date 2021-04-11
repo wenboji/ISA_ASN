@@ -7,7 +7,6 @@ import {
   useRouteMatch,
 } from 'react-router-dom';
 import { labs } from '../Const';
-import { Lab } from './Lab';
 import { QuizPage } from './Quizs';
 import { TeamProject } from './TeamProject';
 const Course = (props) => {

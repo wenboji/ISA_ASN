@@ -1,44 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Link,
-  Route,
-  Switch,
-  useParams,
-  useRouteMatch,
-} from 'react-router-dom';
-const apistats = [
-  { id: 1, method: 'GET', path: '/allitems', accessCount: 8 },
-  { id: 2, method: 'GET', path: '/itemsid/', accessCount: 11 },
-];
-
-const ApiDocumentation = () => {
-  return <div>api documentation</div>;
-};
-
-const AdminPage = () => {
-  const [stats, setStats] = useState([]);
-  useEffect(() => {
-    fetch('http://kevinshih.xyz/inventory_tracker/getApiCount')
-      .then((response) => response.json())
-      .then((data) => setStats(data));
-  });
-  return (
-    <table>
-      <tr>
-        <th>PATH</th>
-        <th>ACCESS COUNT</th>
-      </tr>
-      {stats.map((item) => {
-        return (
-          <tr>
-            <td>{item.name}</td>
-            <td>{item.count}</td>
-          </tr>
-        );
-      })}
-    </table>
-  );
-};
+import React from 'react';
+import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
+import AdminPage from './AdminPage.js';
+import { InventoryTrackerPage } from './InventoryTrackerPage';
 export const TeamProject = () => {
   let { path, url } = useRouteMatch();
   return (
@@ -46,6 +9,9 @@ export const TeamProject = () => {
       team project
       <div>
         <ul>
+          <li>
+            <Link to={url + '/API/V1/inventory'}>Inventory</Link>
+          </li>
           <li>
             <Link to={url + '/API/V1/docs'}>Documentation</Link>
           </li>
@@ -55,9 +21,9 @@ export const TeamProject = () => {
         </ul>
       </div>
       <Switch>
-        {/* <Route path={`${path}/API/V1/documentation`}>
-          <ApiDocumentation />
-        </Route> */}
+        <Route path={`${path}/API/V1/inventory`}>
+          <InventoryTrackerPage />
+        </Route>
         <Route path={`${path}/API/V1/admin`}>
           <AdminPage />
         </Route>
@@ -72,7 +38,7 @@ export const TeamProject = () => {
 function iframe() {
   return {
     __html:
-      '<iframe src="/swagger.html" width="100%" height="1000px" ></iframe>',
+      '<iframe src="/swagger.html" width="100%" height="1500px" ></iframe>',
   };
 }
 const Doc = () => {

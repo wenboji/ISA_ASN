@@ -1,0 +1,616 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Inventory Tracker</title>
+  <style type="text/css">
+    body {
+      font-family: Trebuchet MS, sans-serif;
+      font-size: 15px;
+      color: #444;
+      margin-right: 24px;
+    }
+
+    h1 {
+      font-size: 25px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    hr {
+      height: 1px;
+      border: 0;
+      color: #ddd;
+      background-color: #ddd;
+    }
+
+    .app-desc {
+      clear: both;
+      margin-left: 20px;
+    }
+
+    .param-name {
+      width: 100%;
+    }
+
+    .license-info {
+      margin-left: 20px;
+    }
+
+    .license-url {
+      margin-left: 20px;
+    }
+
+    .model {
+      margin: 0 0 0px 20px;
+    }
+
+    .method {
+      margin-left: 20px;
+    }
+
+    .method-notes {
+      margin: 10px 0 20px 0;
+      font-size: 90%;
+      color: #555;
+    }
+
+    pre {
+      padding: 10px;
+      margin-bottom: 2px;
+    }
+
+    .http-method {
+      text-transform: uppercase;
+    }
+
+    pre.get {
+      background-color: #0f6ab4;
+    }
+
+    pre.post {
+      background-color: #10a54a;
+    }
+
+    pre.put {
+      background-color: #c5862b;
+    }
+
+    pre.delete {
+      background-color: #a41e22;
+    }
+
+    .huge {
+      color: #fff;
+    }
+
+    pre.example {
+      background-color: #f3f3f3;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    code {
+      white-space: pre;
+    }
+
+    .nickname {
+      font-weight: bold;
+    }
+
+    .method-path {
+      font-size: 1.5em;
+      background-color: #0f6ab4;
+    }
+
+    .up {
+      float: right;
+    }
+
+    .parameter {
+      width: 500px;
+    }
+
+    .param {
+      width: 500px;
+      padding: 10px 0 0 20px;
+      font-weight: bold;
+    }
+
+    .param-desc {
+      width: 700px;
+      padding: 0 0 0 20px;
+      color: #777;
+    }
+
+    .param-type {
+      font-style: italic;
+    }
+
+    .param-enum-header {
+      width: 700px;
+      padding: 0 0 0 60px;
+      color: #777;
+      font-weight: bold;
+    }
+
+    .param-enum {
+      width: 700px;
+      padding: 0 0 0 80px;
+      color: #777;
+      font-style: italic;
+    }
+
+    .field-label {
+      padding: 0;
+      margin: 0;
+      clear: both;
+    }
+
+    .field-items {
+      padding: 0 0 15px 0;
+      margin-bottom: 15px;
+    }
+
+    .return-type {
+      clear: both;
+      padding-bottom: 10px;
+    }
+
+    .param-header {
+      font-weight: bold;
+    }
+
+    .method-tags {
+      text-align: right;
+    }
+
+    .method-tag {
+      background: none repeat scroll 0% 0% #24A600;
+      border-radius: 3px;
+      padding: 2px 10px;
+      margin: 2px;
+      color: #FFF;
+      display: inline-block;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Inventory Tracker</h1>
+  <div class="app-desc">This is Wenbo and Kevin's Inventory Tracker</div>
+  <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+  <div class="app-desc">Contact Info: <a href="hello@helloreverb.com">hello@helloreverb.com</a></div>
+  <div class="app-desc">Version: 1.0.0</div>
+  <div class="app-desc">BasePath:/inventory_tracker</div>
+  <div class="license-info">Apache 2.0</div>
+  <div class="license-url">http://www.apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Api">Api</a></h4>
+  <ul>
+    <li><a href="#clearAPICountPost"><code><span class="http-method">post</span> /clearAPICount</code></a></li>
+    <li><a href="#deleteAPICounterDelete"><code><span class="http-method">delete</span> /deleteAPICounter</code></a>
+    </li>
+    <li><a href="#getApiCountGet"><code><span class="http-method">get</span> /getApiCount</code></a></li>
+  </ul>
+  <h4><a href="#Items">Items</a></h4>
+  <ul>
+    <li><a href="#addNewItemPost"><code><span class="http-method">post</span> /addNewItem</code></a></li>
+    <li><a href="#allItemsGet"><code><span class="http-method">get</span> /allItems</code></a></li>
+    <li><a href="#deleteItemIdIdDelete"><code><span class="http-method">delete</span> /deleteItemId/{id}</code></a></li>
+    <li><a href="#itemsidGet"><code><span class="http-method">get</span> /itemsid</code></a></li>
+    <li><a href="#updateItemStockPut"><code><span class="http-method">put</span> /updateItemStock</code></a></li>
+    <li><a href="#updateNamePut"><code><span class="http-method">put</span> /updateName</code></a></li>
+  </ul>
+  <h4><a href="#UserDB">UserDB</a></h4>
+  <ul>
+    <li><a href="#verifyUserPost"><code><span class="http-method">post</span> /verifyUser</code></a></li>
+  </ul>
+
+  <h1><a name="Api">Api</a></h1>
+  <div class="method"><a name="clearAPICountPost" />
+    <div class="method-path">
+      <a class="up" href="#__Methods">Up</a>
+      <pre class="post"><code class="huge"><span class="http-method">post</span> /clearAPICount</code></pre>
+    </div>
+    <div class="method-summary">Clear API Counter (<span class="nickname">clearAPICountPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful Operation
+    <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unable to Complete. Unauthorized
+    <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Server Error
+    <a href="#"></a>
+  </div> <!-- method -->
+  <hr />
+  <div class="method"><a name="deleteAPICounterDelete" />
+    <div class="method-path">
+      <a class="up" href="#__Methods">Up</a>
+      <pre class="delete"><code class="huge"><span class="http-method">delete</span> /deleteAPICounter</code></pre>
+    </div>
+    <div class="method-summary">Delete specific API counter variable (<span
+        class="nickname">deleteAPICounterDelete</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+    <h3 class="field-label">Form parameters</h3>
+    <div class="field-items">
+      <div class="param">name (required)</div>
+
+      <div class="param-desc"><span class="param-type">Form Parameter</span> &mdash; format: String</div>
+    </div> <!-- field-items -->
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful Operation
+    <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    API not found
+    <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Server Error
+    <a href="#"></a>
+  </div> <!-- method -->
+  <hr />
+  <div class="method"><a name="getApiCountGet" />
+    <div class="method-path">
+      <a class="up" href="#__Methods">Up</a>
+      <pre class="get"><code class="huge"><span class="http-method">get</span> /getApiCount</code></pre>
+    </div>
+    <div class="method-summary">Retreive all api access counts (<span class="nickname">getApiCountGet</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful Operation
+    <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Server Error
+    <a href="#"></a>
+  </div> <!-- method -->
+  <hr />
+  <h1><a name="Items">Items</a></h1>
+  <div class="method"><a name="addNewItemPost" />
+    <div class="method-path">
+      <a class="up" href="#__Methods">Up</a>
+      <pre class="post"><code class="huge"><span class="http-method">post</span> /addNewItem</code></pre>
+    </div>
+    <div class="method-summary">Add a new item to the database (<span class="nickname">addNewItemPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">name (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; item's name (JSON object) </div>
+      <div class="param">description (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; item's description (JSON object)
+      </div>
+      <div class="param">quantity (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; item's inital quantity (JSON
+        object) </div>
+
+    </div> <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Successful Operation
+    <a href="#"></a>
+    <h4 class="field-label">406</h4>
+    Item already exists
+    <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Server Error
+    <a href="#"></a>
+  </div> <!-- method -->
+  <hr />
+  <div class="method"><a name="allItemsGet" />
+    <div class="method-path">
+      <a class="up" href="#__Methods">Up</a>
+      <pre class="get"><code class="huge"><span class="http-method">get</span> /allItems</code></pre>
+    </div>
+    <div class="method-summary">Retrieve all items (<span class="nickname">allItemsGet</span>)</div>
+    <div class="method-notes">All items will be retrieved together in a JSON file</div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful Operation
+    <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Empty Database
+    <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Server Error
+    <a href="#"></a>
+  </div> <!-- method -->
+  <hr />
+  <div class="method"><a name="deleteItemIdIdDelete" />
+    <div class="method-path">
+      <a class="up" href="#__Methods">Up</a>
+      <pre class="delete"><code class="huge"><span class="http-method">delete</span> /deleteItemId/{id}</code></pre>
+    </div>
+    <div class="method-summary">Delete item by id. e.g. /deleteItemId/5 (<span
+        class="nickname">deleteItemIdIdDelete</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The id for the item format: int64
+      </div>
+    </div> <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful Operation
+    <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Item not found
+    <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Server Error
+    <a href="#"></a>
+  </div> <!-- method -->
+  <hr />
+  <div class="method"><a name="itemsidGet" />
+    <div class="method-path">
+      <a class="up" href="#__Methods">Up</a>
+      <pre class="get"><code class="huge"><span class="http-method">get</span> /itemsid</code></pre>
+    </div>
+    <div class="method-summary">Retrieve item information by id (<span class="nickname">itemsidGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The id for the item format: int64
+      </div>
+    </div> <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful Operation
+    <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Invalid ID
+    <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Item not found
+    <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Server Error
+    <a href="#"></a>
+  </div> <!-- method -->
+  <hr />
+  <div class="method"><a name="updateItemStockPut" />
+    <div class="method-path">
+      <a class="up" href="#__Methods">Up</a>
+      <pre class="put"><code class="huge"><span class="http-method">put</span> /updateItemStock</code></pre>
+    </div>
+    <div class="method-summary">Update quantity for specific item (<span class="nickname">updateItemStockPut</span>)
+    </div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The id for the item format: int64
+      </div>
+      <div class="param">quantity (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; item quantity format: int64</div>
+    </div> <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful Operation
+    <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Server Error
+    <a href="#"></a>
+  </div> <!-- method -->
+  <hr />
+  <div class="method"><a name="updateNamePut" />
+    <div class="method-path">
+      <a class="up" href="#__Methods">Up</a>
+      <pre class="put"><code class="huge"><span class="http-method">put</span> /updateName</code></pre>
+    </div>
+    <div class="method-summary">Update inventory name (<span class="nickname">updateNamePut</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; The id for the item (JSON object)
+      </div>
+      <div class="param">ame (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; The item's new name (JSON object)
+      </div>
+
+    </div> <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful Operation
+    <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Server Error
+    <a href="#"></a>
+  </div> <!-- method -->
+  <hr />
+  <h1><a name="UserDB">UserDB</a></h1>
+  <div class="method"><a name="verifyUserPost" />
+    <div class="method-path">
+      <a class="up" href="#__Methods">Up</a>
+      <pre class="post"><code class="huge"><span class="http-method">post</span> /verifyUser</code></pre>
+    </div>
+    <div class="method-summary">Verifies the User (<span class="nickname">verifyUserPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+    <h3 class="field-label">Form parameters</h3>
+    <div class="field-items">
+      <div class="param">username (required)</div>
+
+      <div class="param-desc"><span class="param-type">Form Parameter</span> &mdash; format: String</div>
+      <div class="param">password (required)</div>
+
+      <div class="param-desc"><span class="param-type">Form Parameter</span> &mdash; format: String</div>
+    </div> <!-- field-items -->
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">202</h4>
+    Authorized
+    <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+    <a href="#"></a>
+    <h4 class="field-label">500</h4>
+    Server Error
+    <a href="#"></a>
+  </div> <!-- method -->
+  <hr />
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+  </ol>
+
+</body>
+
+</html>
